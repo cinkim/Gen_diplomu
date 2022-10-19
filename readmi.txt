@@ -1,0 +1,10 @@
+Do souboru "seznam_jmen.txt" uložit na každou novou řádku jméno studenta a pohlaví oddělené středníkem.
+m = muž
+f = žena
+
+Např: 
+Karel Novák; m
+Karla Nováková; f
+...
+...
+...
