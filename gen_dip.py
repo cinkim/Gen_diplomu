@@ -1,6 +1,6 @@
 from PyPDF2 import PdfFileWriter, PdfFileReader
 from PyPDF2.generic import BooleanObject, NameObject, IndirectObject
-from os import mkdir, chdir
+from os import mkdir
 import os
 
 def set_need_appearances_writer(writer: PdfFileWriter):
@@ -43,10 +43,10 @@ def gen_dip(jmeno, infile):
 
 
 vystup = "./OUT/"
-try:
-    chdir(vystup)
-except FileNotFoundError:
+
+if not os.path.isdir(vystup):
     mkdir(vystup)
+
 
 with open("seznam_jmen.txt", mode="r", encoding="utf-8") as soubor:
     seznam_jmen = []
