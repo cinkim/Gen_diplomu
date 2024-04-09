@@ -1,7 +1,8 @@
 from PyPDF2 import PdfFileWriter, PdfFileReader
 from PyPDF2.generic import BooleanObject, NameObject, IndirectObject
-from os import mkdir
+from os import mkdir, chdir
 import os
+import datetime
 
 def set_need_appearances_writer(writer: PdfFileWriter):
     # See 12.7.2 and 7.7.2 for more information: http://www.adobe.com/content/dam/acom/en/devnet/acrobat/pdfs/PDF32000_2008.pdf
@@ -33,7 +34,10 @@ def gen_dip(jmeno, infile):
         pdf2._root_object["/AcroForm"].update(
             {NameObject("/NeedAppearances"): BooleanObject(True)})
 
-    field_dictionary = {"Jmeno": jmeno}
+    datum = datetime.date.today()
+    datum = datum.strftime("%d.%m.%Y")
+
+    field_dictionary = {"Jmeno": jmeno, "Datum": datum}
 
     pdf2.addPage(pdf.getPage(0))
     pdf2.updatePageFormFieldValues(pdf2.getPage(0), field_dictionary)
@@ -46,7 +50,6 @@ vystup = "./OUT/"
 
 if not os.path.isdir(vystup):
     mkdir(vystup)
-
 
 with open("seznam_jmen.txt", mode="r", encoding="utf-8") as soubor:
     seznam_jmen = []
